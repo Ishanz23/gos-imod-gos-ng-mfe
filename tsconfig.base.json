@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "imod-outgate-central-exceptions/Routes": [
+        "apps/imod-outgate-central-exceptions/src/app/remote-entry/entry.routes.ts"
+      ],
+      "imod-outgate-terminal-exceptions/Routes": [
+        "apps/imod-outgate-terminal-exceptions/src/app/remote-entry/entry.routes.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,110 @@
+{
+  "name": "imod-outgate-terminal-exceptions",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "gos-imod-gos-ng-mfe",
+  "sourceRoot": "apps/imod-outgate-terminal-exceptions/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/imod-outgate-terminal-exceptions",
+        "index": "apps/imod-outgate-terminal-exceptions/src/index.html",
+        "main": "apps/imod-outgate-terminal-exceptions/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/imod-outgate-terminal-exceptions/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/imod-outgate-terminal-exceptions/src/favicon.ico",
+          "apps/imod-outgate-terminal-exceptions/src/assets"
+        ],
+        "styles": ["apps/imod-outgate-terminal-exceptions/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/imod-outgate-terminal-exceptions/webpack.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/imod-outgate-terminal-exceptions/webpack.prod.config.ts"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "imod-outgate-terminal-exceptions:build:production"
+        },
+        "development": {
+          "buildTarget": "imod-outgate-terminal-exceptions:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "imod-outgate-terminal-exceptions:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/imod-outgate-terminal-exceptions/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "imod-outgate-terminal-exceptions:build",
+        "port": 4202,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "imod-outgate-terminal-exceptions:build:development"
+        },
+        "production": {
+          "buildTarget": "imod-outgate-terminal-exceptions:build:production"
+        }
+      }
+    }
+  }
+}

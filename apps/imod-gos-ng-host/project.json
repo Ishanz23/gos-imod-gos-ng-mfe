@@ -1,0 +1,93 @@
+{
+  "name": "imod-gos-ng-host",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "gos-imod-gos-ng-mfe",
+  "sourceRoot": "apps/imod-gos-ng-host/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/imod-gos-ng-host",
+        "index": "apps/imod-gos-ng-host/src/index.html",
+        "main": "apps/imod-gos-ng-host/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/imod-gos-ng-host/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/imod-gos-ng-host/src/favicon.ico",
+          "apps/imod-gos-ng-host/src/assets"
+        ],
+        "styles": ["apps/imod-gos-ng-host/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/imod-gos-ng-host/webpack.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/imod-gos-ng-host/webpack.prod.config.ts"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "imod-gos-ng-host:build:production"
+        },
+        "development": {
+          "buildTarget": "imod-gos-ng-host:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "imod-gos-ng-host:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/imod-gos-ng-host/jest.config.ts"
+      }
+    }
+  }
+}
